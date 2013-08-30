@@ -44,9 +44,6 @@ log = logging.getLogger('AASTRARESET')
 handler = logging.FileHandler(LOG_FILENAME)
 handler.setLevel(logging.DEBUG)
 log.addHandler(handler)
-
-def Ping(ip):
-    return ping.quiet_ping(ip,count=1)
     
 def CheckProvisionFile(ip):
     result=Ping(ip)
