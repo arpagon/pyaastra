@@ -35,6 +35,7 @@ from mechanize import Browser
 import subprocess
 import ping
 import logging
+import os
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
@@ -44,18 +45,6 @@ log = logging.getLogger('AASTRARESET')
 handler = logging.FileHandler(LOG_FILENAME)
 handler.setLevel(logging.DEBUG)
 log.addHandler(handler)
-    
-def CheckProvisionFile(ip):
-    result=Ping(ip)
-    if result[0] == 0:
-        log.info("IP % Online by Ping" % ip)
-        p = subprocess.Popen(["arp", "-an", ip], stdout=subprocess.PIPE)
-        output, err = p.communicate()
-        mac=output.split(" ")[3]
-        log.info("The MAC % is this IP %" % (mac, ip))
-    else:
-        og.error("IP % Offline" % ip)
-    
 
 def FactoryReset(url_aastra):
     br = Browser()
@@ -89,6 +78,9 @@ def RemoveLocalConfig(url_aastra):
     br.form["resetOption"]="2"
     response=br.submit()
     print response.read()
+    
+def main():
+    pass
 
 if __name__=='__main__':
     main()
