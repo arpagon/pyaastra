@@ -73,11 +73,21 @@ def RemoveLocalConfig(url_aastra):
     br.add_password(url_aastra, "admin", "22222")
     br.open(url_aastra + "/reset.html")
     br.select_form(nr=0)
-    c=br.form.controls[3]
-    c.readonly=False
+    resetOption=br.form.controls[3]
+    resetOption.readonly=False
     br.form["resetOption"]="2"
     response=br.submit()
     print response.read()
+    
+def GetLocalConfigFile(url_aastra,mac):
+    br = Browser()
+    br.add_password(url_aastra, "admin", "22222")
+    br.retrieve(url_aastra + "/localcfg.html", mac + ".local.cfg")
+
+def GetServerConfigFile(url_aastra, mac):
+    br = Browser()
+    br.add_password(url_aastra, "admin", "22222")
+    br.retrieve(url_aastra + "/servercfg.html", mac + ".server.cfg")
     
 def main():
     pass

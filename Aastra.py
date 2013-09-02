@@ -56,7 +56,7 @@ class Aastra(object):
         self.Mac=None
         self.Ext=None
         self.Register=None
-        self.ProvisionFile=None        
+        self.ProvisionFile=None
         
     def Ping(self):
         return ping.quiet_ping(self.Ip,count=1)
@@ -65,10 +65,10 @@ class Aastra(object):
         result=self.Ping()
         if result[0] == 0:
             log.info("Ip % Online by Ping" % self.Ip)
-            p = subprocess.Popen(["arp", "-an", self.Ip], stdout=subprocess.PIpE)
+            p = subprocess.Popen(["arp", "-an", self.Ip], stdout=subprocess.PIPE)
             output, err = p.communicate()
             mac=output.split(" ")[3]
-            log.info("The MAC % is this Ip %" % (mac, Ip))
+            log.info("The MAC % is this Ip %" % (mac, self.Ip))
         else:
             log.error("Ip % Offline" % self.Ip)
             
