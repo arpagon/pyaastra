@@ -92,7 +92,7 @@ def EndPointMapBackup(NetworkString):
     log.info("backup dir is %s" % BackupDirWhitDate)
     if not os.path.exists(BackupDirWhitDate):
         os.makedirs(BackupDirWhitDate)
-    with open("BackupDirWhitDate" + '/LastAastraBackup.csv', 'w') as LastAastraBackup:
+    with open(BackupDirWhitDate + '/LastAastraBackup.csv', 'w') as LastAastraBackup:
         w = csv.writer(LastAastraBackup)
         w.writerows(AastraHostDict.items())
     for phone in AastraHostDict.keys():
