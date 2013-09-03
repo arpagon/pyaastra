@@ -73,7 +73,7 @@ def BackupPhone(IP, BackupDir=BackupDir):
         log.info("Get Remote: Server Config File on %s" % remote_server_file)
         WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
 
-def EndPointBackup(NetworkString):
+def EndPointMapBackup(NetworkString):
     GenNmapFile(NetworkString)
     HostDict=GetHost()
     AastraHostDict=GetAastraPhone(HostDict)
