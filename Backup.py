@@ -96,6 +96,7 @@ if __name__=='__main__':
                   help="Backup a la RED [network]", metavar="network")
     parser.add_option("-I", "--ipaddr", dest="ipaddr",
                   help="backup de una [IP]", metavar="IP")
+    (options, args) = parser.parse_args()
     log.info("Inicio Del Programa")
     if options.network:
         log.info("Backup de telefonos Aastra en RED %s" % options.network)
