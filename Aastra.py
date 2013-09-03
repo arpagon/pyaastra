@@ -69,7 +69,7 @@ class Aastra(object):
             p = subprocess.Popen(["arp", "-an", self.IP], stdout=subprocess.PIPE)
             output, err = p.communicate()
             self.MAC=output.split(" ")[3]
-            self.ProvisionFile("/tftpboot/" + self.MAC)
+            self.ProvisionFile=ProvisionFile("/tftpboot/" + self.MAC)
             log.info("The MAC %s is this IP %s" % (self.MAC, self.IP))
         else:
             log.error("IP %s Offline" % self.IP)
