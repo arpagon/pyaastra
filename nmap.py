@@ -45,12 +45,11 @@ log.addHandler(handler)
 NmapFile="/tmp/nmap.xml"
 
 def GenNmapFile(NetworString):
-    p = subprocess.Popen(["nmap", "-sP -n -oX", NmapFile, NetworString], stdout=subprocess.PIPE)
+    p = subprocess.Popen(["nmap", "-sP", "-n" , "-oX", NmapFile, NetworString], stdout=subprocess.PIPE)
     output, err = p.communicate()
     if not err:
         return True
     else:
-        log.error(err)
         return False
 
 def GetHost(NmapFile=NmapFile):
