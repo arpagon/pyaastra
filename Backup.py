@@ -90,6 +90,7 @@ def main():
 if __name__=='__main__':
     '''Unix parsing command-line options'''
     uso = "modo de uso: %prog [options]"
+    parser = OptionParser(uso)
     parser.add_option("-N", "--network", dest="network",
                   action="store_true",
                   help="Backup a la RED [network]", metavar="network")
