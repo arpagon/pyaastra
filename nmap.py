@@ -53,9 +53,9 @@ def GenNmapFile(NetworString):
         log.error(err)
         return False
 
-def GetHost(NmapFile):
-    Result=open.(NmapFile).read()
-    NmapResult=BeautifulSoup(Relsult)
+def GetHost(NmapFile=NmapFile):
+    Result=open(NmapFile).read()
+    NmapResult=BeautifulSoup(Result)
     HostDict={}
     for Host in NmapResult:
         if Host.status.attrs[0][1] == "up":

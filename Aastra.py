@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#       dialbox_recordingproc.py
+#       Aastra.py
 #       Copyright 2010 arpagon <arpagon@gmail.com.co>
 #       
 #       This program is free software; you can redistribute it and/or modify
