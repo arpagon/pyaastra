@@ -62,7 +62,13 @@ def GetHost(NmapFile=NmapFile):
                 if (u'addrtype', u'mac') in Address.attrs:
                     HostDict[Host.address.attrs[0][1]]=Address.attrs[0][1]
     return HostDict
-        
+
+def GetAastraPhone(HostDict):
+    for host in HostDict:
+        if not HostDict[host].startswith("00:08:5D"):
+            HostDict[host].pop()
+    return HostDict
+    
 
 def main():
     pass
