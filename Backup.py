@@ -35,6 +35,7 @@ from Aastra import Aastra
 import shutil
 import WebAdmin
 import subprocess
+import nmap
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
@@ -72,9 +73,12 @@ def BackupPhone(IP, BackupDir=BackupDir):
         log.info("Get Remote: Server Config File on %s" % remote_server_file)
         WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
 
-def EndPointMap(NetworkString):
-    pass
-    
+def EndPointBackup(NetworkString):
+    GenNmapFile(NetworkString)
+    HostDict=GetHost()
+    AastraHostDict=GetAastraPhone(HostDict)
+    for phone in AastraHostDict.keys():
+        BackupPhone(phone)
 
 def main():
     pass
