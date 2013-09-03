@@ -49,7 +49,7 @@ if not os.path.exists("/var/log/dialbox"):
 LOG_FILENAME = '/var/log/dialbox/AastraBackup.log'
 log = logging.getLogger('AASTRABACKUP')
 handler = logging.FileHandler(LOG_FILENAME)
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(message)s')
 handler.setFormatter(formatter)
 handler.setLevel(logging.DEBUG)
 log.addHandler(handler)
