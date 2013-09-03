@@ -92,16 +92,18 @@ def EndPointMapBackup(NetworkString):
     HostDict=nmap.GetHost()
     AastraHostDict=nmap.GetAastraPhone(HostDict)
     log.info("Backup for %s" %  AastraHostDict)
+    BackupReport=[]
     Date=datetime.now().strftime("%Y-%m-%d")
     BackupDirWhitDate=BackupDir + Date
     log.info("backup dir is %s" % BackupDirWhitDate)
     if not os.path.exists(BackupDirWhitDate):
         os.makedirs(BackupDirWhitDate)
+    for phone in AastraHostDict.keys():
+        (StatusServer, StatusRemoteLocal, StatusRemoteServer) = BackupPhone(phone)
+        BackupReport.append((phone, AastraHostDict[phone], StatusServer, StatusRemoteLocal, StatusRemoteServer))
     with open(BackupDirWhitDate + '/LastAastraBackup.csv', 'w') as LastAastraBackup:
         w = csv.writer(LastAastraBackup)
-        w.writerows(AastraHostDict.items())
-    for phone in AastraHostDict.keys():
-        BackupPhone(phone)
+        w.writerows(BackupReport)
 
 def main():
     pass
