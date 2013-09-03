@@ -74,9 +74,9 @@ def BackupPhone(IP, BackupDir=BackupDir):
         WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
 
 def EndPointMapBackup(NetworkString):
-    GenNmapFile(NetworkString)
-    HostDict=GetHost()
-    AastraHostDict=GetAastraPhone(HostDict)
+    nmap.GenNmapFile(NetworkString)
+    HostDict=nmap.GetHost()
+    AastraHostDict=nmap.GetAastraPhone(HostDict)
     for phone in AastraHostDict.keys():
         BackupPhone(phone)
 
