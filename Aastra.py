@@ -92,7 +92,7 @@ class ProvisionFile(object):
     def CheckProvisioningFile(self):
         self.Exist=os.path.isfile(self.Path)
         if self.Exist:
-            self.Length=__file_len(self.Path)
+            self.Length=self._file_len(self.Path)
             if self.Length >= 10:
                 self.IsOK=True
             else:
@@ -101,11 +101,11 @@ class ProvisionFile(object):
             self.IsOK=False
     
 
-def __file_len(fname):
-    with open(fname) as f:
-        for i, l in enumerate(f):
-            pass
-    return i + 1
+    def _file_len(self, fname):
+        with open(fname) as f:
+            for i, l in enumerate(f):
+                pass
+        return i + 1
     
             
         
