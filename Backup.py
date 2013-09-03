@@ -41,6 +41,7 @@ import subprocess
 import nmap
 from optparse import OptionParser
 import sys
+import csv
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
@@ -85,6 +86,11 @@ def EndPointMapBackup(NetworkString):
     nmap.GenNmapFile(NetworkString)
     HostDict=nmap.GetHost()
     AastraHostDict=nmap.GetAastraPhone(HostDict)
+    log.info("Backup for %d" %  AastraHostDict)
+    with open('LastAastraBackup.csv', 'w') as file:
+        w = csv.DictWriter(f, AastraHostDict.keys())
+        w.writeheader()
+        w.writerow(AastraHostDict)
     for phone in AastraHostDict.keys():
         BackupPhone(phone)
 
