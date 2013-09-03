@@ -22,6 +22,9 @@
 """Python Library for admin Aastra Phones
 backup
 """
+activate_this = "/opt/DialBox/bin/activate_this.py"
+execfile(activate_this, dict(__file__=activate_this))
+
 __version__ = "0.0.1"
 __license__ = """The GNU General Public License (GPL-2.0)"""
 __author__ = "Sebastian Rojo <http://www.sapian.com.co> arpagon@gamil.com"
@@ -36,6 +39,7 @@ import shutil
 import WebAdmin
 import subprocess
 import nmap
+import OptionParser
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
@@ -84,4 +88,20 @@ def main():
     pass
 
 if __name__=='__main__':
+    '''Unix parsing command-line options'''
+    uso = "modo de uso: %prog [options]"
+    parser.add_option("-N", "--network", dest="network",
+                  action="store_true",
+                  help="Backup a la RED [network]", metavar="network")
+    parser.add_option("-I", "--ipaddr", dest="ipaddr",
+                  help="backup de una [IP]", metavar="IP")
+    log.info("Inicio Del Programa")
+    if options.network:
+        log.info("Backup de telefonos Aastra en RED %s" % options.network)
+        EndPointMapBackup(options.network)
+        sys.exit()
+    if options.ipaddr:
+        log.info("Backup del telefono %s" % options.ipaddr)
+        BackupPhone(options.ipaddr)
+        sys.exit()
     main()
