@@ -39,7 +39,7 @@ import shutil
 import WebAdmin
 import subprocess
 import nmap
-import OptionParser
+from optparse import OptionParser
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
