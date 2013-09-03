@@ -48,7 +48,7 @@ BackupDir="/home/backup/Aastra/"
 
 def BackupPhone(IP, BackupDir=BackupDir):
     log.info("backup for phone %s" % IP)
-    Date=datetime.now().strftime("%Y-%M-%d")
+    Date=datetime.now().strftime("%Y-%m-%d")
     BackupDirWhitDate=BackupDir + Date
     log.info("backup dir is %s" % BackupDirWhitDate)
     if not os.path.exists(BackupDirWhitDate):
