@@ -45,7 +45,7 @@ import sys
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
     os.makedirs("/var/log/dialbox")
-LOG_FILENAME = '/var/log/dialbox/AastraFactoryReset.log'
+LOG_FILENAME = '/var/log/dialbox/AastraBackup.log'
 log = logging.getLogger('AASTRABACKUP')
 handler = logging.FileHandler(LOG_FILENAME)
 handler.setLevel(logging.DEBUG)
