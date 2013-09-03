@@ -84,7 +84,7 @@ def GetLocalConfigFile(url_aastra, return_file):
     br.add_password(url_aastra, "admin", "22222")
     br.retrieve(url_aastra + "/localcfg.html", return_file)
 
-def GetServerConfigFile(url_aastra, mac):
+def GetServerConfigFile(url_aastra, return_file):
     br = Browser()
     br.add_password(url_aastra, "admin", "22222")
     br.retrieve(url_aastra + "/servercfg.html", return_file)
