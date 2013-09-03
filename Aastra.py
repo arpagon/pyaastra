@@ -28,7 +28,6 @@ __author__ = "Sebastian Rojo <http://www.sapian.com.co> arpagon@gamil.com"
 __contributors__ = []
 _debug = 0
 
-
 activate_this = "/opt/DialBox/bin/activate_this.py"
 execfile(activate_this, dict(__file__=activate_this))
 
