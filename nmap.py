@@ -61,7 +61,7 @@ def GetHost(NmapFile=NmapFile):
             for Address in Host.findAll("address"):
                 if (u'addrtype', u'mac') in Address.attrs:
                     HostDict[Host.address.attrs[0][1]]=Address.attrs[0][1]
-    print HostDict
+    return HostDict
         
 
 def main():
