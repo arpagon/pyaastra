@@ -34,6 +34,7 @@ from datetime import datetime
 from Aastra import Aastra
 import shutil
 import WebAdmin
+import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
@@ -70,6 +71,9 @@ def BackupPhone(IP, BackupDir=BackupDir):
         WebAdmin.GetLocalConfigFile(aastra_url, local_config_file)
         log.info("Get Remote: Server Config File on %s" % remote_server_file)
         WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
+
+def EndPointMap(NetworkString):
+    pass
     
 
 def main():
