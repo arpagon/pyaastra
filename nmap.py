@@ -71,7 +71,10 @@ def GetAastraPhone(HostDict):
     
 
 def main():
-    pass
+    GenNmapFile("192.168.252.0/24")
+    HostDict=GetHost()
+    AastraHostDict=GetAastraPhone(HostDict)
+    print AastraHostDict 
 
 if __name__=='__main__':
     main()
