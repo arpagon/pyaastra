@@ -56,7 +56,7 @@ def GetHost(NmapFile=NmapFile):
     Result=open(NmapFile).read()
     NmapResult=BeautifulSoup(Result)
     HostDict={}
-    for Host in NmapResul.findAll("host"):
+    for Host in NmapResult.findAll("host"):
         if Host.status.attrs[0][1] == "up":
             for Address in Host.findAll("address"):
                 if (u'addrtype', u'mac') in Address.attrs:
