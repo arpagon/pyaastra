@@ -47,30 +47,65 @@ class Aastra(object):
     Aastra Class
     '''
 
-    def __init__(self, Ip):
+    def __init__(self, IP):
         '''
         Constructor de clase Aastra
         '''
-        self.Ip=Ip
+        self.IP=IP
         self.Online=None
-        self.Mac=None
+        self.MAC=None
         self.Ext=None
         self.Register=None
-        self.ProvisionFile=None
+
         
     def Ping(self):
-        return ping.quiet_ping(self.Ip,count=1)
+        return ping.quiet_ping(self.IP,count=1)
     
     def CheckMac(self):
         result=self.Ping()
         if result[0] == 0:
-            log.info("Ip % Online by Ping" % self.Ip)
-            p = subprocess.Popen(["arp", "-an", self.Ip], stdout=subprocess.PIPE)
+            log.info("IP %s Online by Ping" % self.IP)
+            p = subprocess.Popen(["arp", "-an", self.IP], stdout=subprocess.PIPE)
             output, err = p.communicate()
-            mac=output.split(" ")[3]
-            log.info("The MAC % is this Ip %" % (mac, self.Ip))
+            self.MAC=output.split(" ")[3]
+            self.ProvisionFile="/tftpboot/" + self.MAC
+            log.info("The MAC %s is this IP %s" % (self.MAC, self.IP))
         else:
-            log.error("Ip % Offline" % self.Ip)
+            log.error("IP %s Offline" % self.IP)
+            
+class ProvisionFile(object):
+    '''
+    Provisioning Class
+    '''
+
+    def __init__(self, FilePath):
+        '''
+        Constructor de clase ProfisionFile
+        '''
+        self.Path=FilePath
+        self.Exist=None
+        self.IsOK=None
+        self.Length=None
+        self.CheckProvisioningFile()
+    
+    def CheckProvisioningFile(self):
+        self.Exist=os.path.isfile(self.Path)
+        if self.Exist:
+            self.Length=__file_len(self.Path)
+            if self.Length >= 10:
+                self.IsOK=True
+            else:
+                self.IsOK=False
+        else:
+            self.IsOK=False
+    
+
+def __file_len(fname):
+    with open(fname) as f:
+        for i, l in enumerate(f):
+            pass
+    return i + 1
+    
             
         
     
