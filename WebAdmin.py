@@ -87,16 +87,20 @@ def GetLocalConfigFile(url_aastra, return_file):
     br.add_password(url_aastra, "admin", "22222")
     try:
         br.retrieve(url_aastra + "/localcfg.html", return_file)
+        return True
     except:
         log.warn("Maybe isn't a aastra phone? You are Sure?")
+        return False
 
 def GetServerConfigFile(url_aastra, return_file):
     br = Browser()
     br.add_password(url_aastra, "admin", "22222")
     try:
         br.retrieve(url_aastra + "/servercfg.html", return_file)
+        return True
     except:
         log.warn("Maybe isn't a aastra phone? You are Sure?")
+        return False
     
 def main():
     pass
