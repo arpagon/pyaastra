@@ -41,7 +41,7 @@ logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
     os.makedirs("/var/log/dialbox")
 LOG_FILENAME = '/var/log/dialbox/AastraFactoryReset.log'
-log = logging.getLogger('AASTRARESET')
+log = logging.getLogger('AASTRAWEB')
 handler = logging.FileHandler(LOG_FILENAME)
 handler.setLevel(logging.DEBUG)
 log.addHandler(handler)
@@ -82,12 +82,18 @@ def RemoveLocalConfig(url_aastra):
 def GetLocalConfigFile(url_aastra, return_file):
     br = Browser()
     br.add_password(url_aastra, "admin", "22222")
-    br.retrieve(url_aastra + "/localcfg.html", return_file)
+    try:
+        br.retrieve(url_aastra + "/localcfg.html", return_file)
+    except:
+        log.warn("Maybe isn't a aastra phone? You are Sure?")
 
 def GetServerConfigFile(url_aastra, return_file):
     br = Browser()
     br.add_password(url_aastra, "admin", "22222")
-    br.retrieve(url_aastra + "/servercfg.html", return_file)
+    try:
+        br.retrieve(url_aastra + "/servercfg.html", return_file)
+    except:
+        log.warn("Maybe isn't a aastra phone? You are Sure?")
     
 def main():
     pass
