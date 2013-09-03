@@ -56,6 +56,7 @@ log.addHandler(handler)
 BackupDir="/home/backup/Aastra/"
 
 def BackupPhone(IP, BackupDir=BackupDir):
+    log = logging.getLogger("AASTRABACKUP:%s" % IP)
     log.info("backup for phone %s" % IP)
     Date=datetime.now().strftime("%Y-%m-%d")
     BackupDirWhitDate=BackupDir + Date
