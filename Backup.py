@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#       dialbox_recordingproc.py
+#       backup.py
 #       Copyright 2010 arpagon <arpagon@gmail.com.co>
 #       
 #       This program is free software; you can redistribute it and/or modify
@@ -20,75 +20,57 @@
 #       MA 02110-1301, USA.
 
 """Python Library for admin Aastra Phones
-Factory Reset
+backup
 """
-
-
 __version__ = "0.0.1"
 __license__ = """The GNU General Public License (GPL-2.0)"""
 __author__ = "Sebastian Rojo <http://www.sapian.com.co> arpagon@gamil.com"
 __contributors__ = []
 _debug = 0
 
-from optparse import OptionParser
-from mechanize import Browser
-import subprocess
-import ping
 import logging
 import os
+from datetime import datetime
+from Aastra import Aastra
+import shutil
+import WebAdmin
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
     os.makedirs("/var/log/dialbox")
 LOG_FILENAME = '/var/log/dialbox/AastraFactoryReset.log'
-log = logging.getLogger('AASTRARESET')
+log = logging.getLogger('AASTRABACKUP')
 handler = logging.FileHandler(LOG_FILENAME)
 handler.setLevel(logging.DEBUG)
 log.addHandler(handler)
 
-def FactoryReset(url_aastra):
-    br = Browser()
-    br.add_password(url_aastra, "admin", "22222")
-    br.open(url_aastra + "/reset.html")
-    br.select_form(nr=0)
-    c=br.form.controls[3]
-    c.readonly=False
-    br.form["resetOption"]="1"
-    response=br.submit()
-    print response.read()
+BackupDir="/home/backup/Aastra/"
 
-def Reset(url_aastra):
-    br = Browser()
-    br.add_password(url_aastra, "admin", "22222")
-    br.open(url_aastra + "/reset.html")
-    br.select_form(nr=0)
-    c=br.form.controls[3]
-    c.readonly=False
-    br.form["resetOption"]="0"
-    response=br.submit()
-    print response.read()
-
-def RemoveLocalConfig(url_aastra):
-    br = Browser()
-    br.add_password(url_aastra, "admin", "22222")
-    br.open(url_aastra + "/reset.html")
-    br.select_form(nr=0)
-    resetOption=br.form.controls[3]
-    resetOption.readonly=False
-    br.form["resetOption"]="2"
-    response=br.submit()
-    print response.read()
+def BackupPhone(IP, BackupDir=BackupDir):
+    log.info("backup for phone %s" % IP)
+    Date=datetime.now().strftime("%Y-%M-%d")
+    BackupDirWhitDate=BackupDir + Date
+    log.info("backup dir is %s" % BackupDirWhitDate)
+    if not os.path.exists(BackupDirWhitDate):
+        os.makedirs(BackupDirWhitDate)
+    Phone=Aastra(IP)
+    Phone.CheckMac()
+    if Phone.ProvisionFile.Exist:
+        log.info("Copy Provision File in Server: %s to %s" % (Phone.ProvisionFile.Path, BackupDirWhitDate))
+        shutil.copy(Phone.ProvisionFile.Path, BackupDirWhitDate)
+    else:
+        log.warn("In server Provision File Dont Exist")
+    if Phone.Online:
+        log.info("Online Phone Try Get Local And Server Config From Phone")
+        aastra_url="http://" + IP
+        local_config_file=BackupDirWhitDate + "/" + Phone.MAC + "local.cfg"
+        remote_server_file=BackupDirWhitDate + "/" + Phone.MAC + "server.cfg"
+        log.info("Get Remote: Local Config File on %s" % local_config_file)
+        WebAdmin.GetLocalConfigFile(aastra_url, local_config_file)
+        log.info("Get Remote: Server Config File on %s" % remote_server_file)
+        WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
     
-def GetLocalConfigFile(url_aastra,mac):
-    br = Browser()
-    br.add_password(url_aastra, "admin", "22222")
-    br.retrieve(url_aastra + "/localcfg.html", mac + ".local.cfg")
 
-def GetServerConfigFile(url_aastra, mac):
-    br = Browser()
-    br.add_password(url_aastra, "admin", "22222")
-    br.retrieve(url_aastra + "/servercfg.html", mac + ".server.cfg")
-    
 def main():
     pass
 

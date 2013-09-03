@@ -66,6 +66,7 @@ class Aastra(object):
         result=self.Ping()
         if result[0] == 0:
             log.info("IP %s Online by Ping" % self.IP)
+            self.Online=True
             p = subprocess.Popen(["arp", "-an", self.IP], stdout=subprocess.PIPE)
             output, err = p.communicate()
             self.MAC=output.split(" ")[3]
