@@ -66,7 +66,7 @@ def GetHost(NmapFile=NmapFile):
 def GetAastraPhone(HostDict):
     for host in HostDict:
         if not HostDict[host].startswith("00:08:5D"):
-            HostDict.pop(host)
+            del HostDict[host]
     return HostDict
     
 
