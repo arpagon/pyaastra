@@ -80,7 +80,7 @@ def BackupPhone(IP, BackupDir=BackupDir):
         local_config_file=BackupDirWhitDate + "/" + Phone.MAC.replace(":", "") + ".local.cfg"
         remote_server_file=BackupDirWhitDate + "/" + Phone.MAC.replace(":", "") + ".server.cfg"
         log.info("Get Remote: Local Config File on %s" % local_config_file)
-        StatusRemoteLocal=ServerWebAdmin.GetLocalConfigFile(aastra_url, local_config_file)
+        StatusRemoteLocal=WebAdmin.GetLocalConfigFile(aastra_url, local_config_file)
         log.info("Get Remote: Server Config File on %s" % remote_server_file)
         StatusRemoteServer=WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
         return (StatusServer, StatusRemoteLocal, StatusRemoteServer)
