@@ -92,7 +92,6 @@ if __name__=='__main__':
     uso = "modo de uso: %prog [options]"
     parser = OptionParser(uso)
     parser.add_option("-N", "--network", dest="network",
-                  action="store_true",
                   help="Backup a la RED [network]", metavar="network")
     parser.add_option("-I", "--ipaddr", dest="ipaddr",
                   help="backup de una [IP]", metavar="IP")
