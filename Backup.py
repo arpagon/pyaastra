@@ -89,7 +89,7 @@ def EndPointMapBackup(NetworkString):
     log.info("Backup for %s" %  AastraHostDict)
     with open('LastAastraBackup.csv', 'w') as LastAastraBackup:
         w = csv.DictWriter(LastAastraBackup, AastraHostDict.keys())
-        w.writeheader()
+        #w.writeheader()
         w.writerow(AastraHostDict)
     for phone in AastraHostDict.keys():
         BackupPhone(phone)
