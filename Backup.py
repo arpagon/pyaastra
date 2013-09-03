@@ -40,6 +40,7 @@ import WebAdmin
 import subprocess
 import nmap
 from optparse import OptionParser
+import sys
 
 logging.basicConfig(level=logging.DEBUG)
 if not os.path.exists("/var/log/dialbox"):
