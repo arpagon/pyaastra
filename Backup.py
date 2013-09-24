@@ -34,7 +34,7 @@ _debug = 0
 import logging
 import os
 from datetime import datetime
-from Aastra import Aastra
+from Aastra import Aastra, ProvisionFile
 import shutil
 import WebAdmin
 import subprocess
@@ -81,11 +81,19 @@ def BackupPhone(IP, BackupDir=BackupDir):
         remote_server_file=BackupDirWhitDate + "/" + Phone.MAC.replace(":", "") + ".server.cfg"
         log.info("Get Remote: Local Config File on %s" % local_config_file)
         StatusRemoteLocal=WebAdmin.GetLocalConfigFile(aastra_url, local_config_file)
+        if StatusRemoteLocal:
+            l_file=ProvisionFile(local_config_file)
+            if l_file.Length <= 10:
+                StatusRemoteLocalOK=True
+            else:
+                StatusRemoteLocalOK=False
+        else:
+            StatusRemoteLocalOK=False
         log.info("Get Remote: Server Config File on %s" % remote_server_file)
         StatusRemoteServer=WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
-        return (StatusServer, StatusRemoteLocal, StatusRemoteServer)
+        return (StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK)
     else:
-        return (StatusServer, False, False)
+        return (StatusServer, False, False, False)
 
 def EndPointMapBackup(NetworkString):
     nmap.GenNmapFile(NetworkString)
@@ -99,8 +107,8 @@ def EndPointMapBackup(NetworkString):
     if not os.path.exists(BackupDirWhitDate):
         os.makedirs(BackupDirWhitDate)
     for phone in AastraHostDict.keys():
-        (StatusServer, StatusRemoteLocal, StatusRemoteServer) = BackupPhone(phone)
-        BackupReport.append((phone, AastraHostDict[phone], StatusServer, StatusRemoteLocal, StatusRemoteServer))
+        (StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK) = BackupPhone(phone)
+        BackupReport.append((phone, AastraHostDict[phone], StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK))
     with open(BackupDirWhitDate + '/LastAastraBackup.csv', 'w') as LastAastraBackup:
         w = csv.writer(LastAastraBackup)
         w.writerows(BackupReport)

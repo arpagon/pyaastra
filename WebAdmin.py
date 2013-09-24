@@ -89,7 +89,7 @@ def GetLocalConfigFile(url_aastra, return_file):
         br.retrieve(url_aastra + "/localcfg.html", return_file)
         return True
     except:
-        log.warn("Maybe isn't a aastra phone? You are Sure?")
+        log.warn("Maybe isn't a aastra phone? Are you Sure?")
         return False
 
 def GetServerConfigFile(url_aastra, return_file):
@@ -99,7 +99,7 @@ def GetServerConfigFile(url_aastra, return_file):
         br.retrieve(url_aastra + "/servercfg.html", return_file)
         return True
     except:
-        log.warn("Maybe isn't a aastra phone? You are Sure?")
+        log.warn("Maybe isn't a aastra phone? Are you Sure?")
         return False
     
 def main():
