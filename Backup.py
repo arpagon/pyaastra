@@ -104,6 +104,7 @@ def EndPointMapBackup(NetworkString):
     AastraHostDict=nmap.GetAastraPhone(HostDict)
     log.info("Backup for %s" %  AastraHostDict)
     BackupReport=[]
+    BackupReport.append(("phone", "MAC", "StatusServer", "StatusRemoteLocal", "StatusRemoteServer", "StatusRemoteLocalOK", "StatusRemoteLocalLength"))
     Date=datetime.now().strftime("%Y-%m-%d")
     BackupDirWhitDate=BackupDir + Date
     log.info("backup dir is %s" % BackupDirWhitDate)
