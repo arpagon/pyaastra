@@ -85,15 +85,18 @@ def BackupPhone(IP, BackupDir=BackupDir):
             l_file=ProvisionFile(local_config_file)
             if l_file.Length <= 10:
                 StatusRemoteLocalOK=True
+                StatusRemoteLocalLength=l_file.Length
             else:
                 StatusRemoteLocalOK=False
+                StatusRemoteLocalLength=l_file.Length
         else:
             StatusRemoteLocalOK=False
+            StatusRemoteLocalLength=0
         log.info("Get Remote: Server Config File on %s" % remote_server_file)
         StatusRemoteServer=WebAdmin.GetServerConfigFile(aastra_url, remote_server_file)
-        return (StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK)
+        return (StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK, StatusRemoteLocalLength)
     else:
-        return (StatusServer, False, False, False)
+        return (StatusServer, False, False, False, 0)
 
 def EndPointMapBackup(NetworkString):
     nmap.GenNmapFile(NetworkString)
@@ -107,8 +110,8 @@ def EndPointMapBackup(NetworkString):
     if not os.path.exists(BackupDirWhitDate):
         os.makedirs(BackupDirWhitDate)
     for phone in AastraHostDict.keys():
-        (StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK) = BackupPhone(phone)
-        BackupReport.append((phone, AastraHostDict[phone], StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK))
+        (StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK, StatusRemoteLocalLength) = BackupPhone(phone)
+        BackupReport.append((phone, AastraHostDict[phone], StatusServer, StatusRemoteLocal, StatusRemoteServer, StatusRemoteLocalOK, StatusRemoteLocalLength))
     with open(BackupDirWhitDate + '/LastAastraBackup.csv', 'w') as LastAastraBackup:
         w = csv.writer(LastAastraBackup)
         w.writerows(BackupReport)
